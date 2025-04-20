@@ -43,7 +43,7 @@
 ## ⚙️ Getting Started
 
 ```bash
-git clone https://github.com/moidalam05/e-shop-react.git
+git clone https://github.com/moidalam05/E-Shop-React.git
 cd e-shop
 npm install
 npm start
