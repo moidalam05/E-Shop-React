@@ -1,12 +1,70 @@
-# React + Vite
+# 🛒 E-Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![React](https://img.shields.io/badge/React-18.x-blue?logo=react)](https://reactjs.org/)
+[![Redux](https://img.shields.io/badge/Redux-Vanilla-purple?logo=redux)](https://redux.js.org/)
+[![Tailwind](https://img.shields.io/badge/TailwindCSS-3.x-38BDF8?logo=tailwindcss)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Currently, two official plugins are available:
+**E-Shop** is a modern e-commerce web app built with **React.js** and **Vanilla Redux** (no Redux Toolkit). It fetches product data using the **DummyJSON API** and features a clean, responsive UI with **Tailwind CSS**. The app showcases products, user reviews, and a form to submit new reviews — with a split layout on large screens.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🌐 Live Demo
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🔗 [View Live on Vercel](https://your-e-shop.vercel.app)
+
+---
+
+## 📸 Screenshot
+
+![E-Shop Preview](./assets/screenshot.png)
+
+---
+
+## ✨ Features
+
+- Product listing via DummyJSON API  
+- Global state handled with Vanilla Redux  
+- Customer reviews with a submission form  
+- Tailwind CSS for responsive design  
+- Desktop-optimized dual-panel layout for reviews
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React.js  
+- **State:** Vanilla Redux  
+- **Styling:** Tailwind CSS  
+- **API:** [DummyJSON](https://dummyjson.com)
+
+---
+
+## ⚙️ Getting Started
+
+```bash
+git clone https://github.com/moidalam05/e-shop-react.git
+cd e-shop
+npm install
+npm start
+```
+
+---
+
+## 🤝 Contribution
+
+Contributions are welcome! If you'd like to improve this project:
+
+- Fork the repository
+- Create a new branch (`git checkout -b feature-branch`)
+- Make your changes
+- Commit and push (`git commit -m "Add feature"` → `git push origin feature-branch`)
+- Submit a pull request
+
+For major changes, please open an issue first to discuss what you would like to change.
+
+> Crafted with 💙 using React, Redux, and Tailwind CSS.
+
+
+
+
