@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import RelatedProducts from "../components/RelatedProducts";
+import axios from "axios";
 
 const ProductDetails = () => {
-  const { id } = useParams();
+  const { id: productId } = useParams();
   const [selectStar, setSelectStar] = useState(0);
-  const featuredProducts = useSelector((state) => state.featuredProductReducer);
-  const product = featuredProducts.find((item) => item.id === parseInt(id));
-  const [image, setImage] = useState(product.images[0]);
+  const [product, setProduct] = useState(null);
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    const fetchProductById = async () => {
+      try {
+        const response = await axios.get(
+          `https://dummyjson.com/products/${productId}`
+        );
+        setProduct(response.data);
+        setImage(response.data.images[0]);
+        console.log("product", response.data);
+      } catch (error) {
+        console.log("error in product details", error || error.message);
+      }
+    };
+    fetchProductById();
+  }, [productId]);
+
+  
 
   const handleStarClick = (index) => setSelectStar(index);
   const selectImage = (image) => {
@@ -177,7 +194,11 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <RelatedProducts category={product.category} />
+      <RelatedProducts
+        category={product?.category}
+        setProduct={setProduct}
+        setImage={setImage}
+      />
     </div>
   );
 };
