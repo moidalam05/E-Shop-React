@@ -7,6 +7,7 @@ import homeImage from "../Assets/Images/home.jpg";
 import TrendingCategories from "../components/TrendingCategories";
 import CountdownTimer from "../components/CountdownTimer";
 import BrandsWeWorkWith from "../components/BrandsWeWorkWith";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -31,9 +32,12 @@ const Home = () => {
             <p className="text-lg md:text-2xl mb-6 text-gray-400">
               Discover the best products at unbeatable prices
             </p>
-            <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+            <Link
+              to="/shop"
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            >
               Shop Now
-            </button>
+            </Link>
           </motion.div>
         </div>
       </div>
