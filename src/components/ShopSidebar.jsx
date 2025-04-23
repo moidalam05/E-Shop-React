@@ -2,7 +2,7 @@ import React from "react";
 
 const ShopSidebar = () => {
   return (
-    <div className="w-1/4 bg-white shadow-lg">
+    <div className="w-1/4 hidden md:block bg-white shadow-lg">
       <h1 className="p-4 text-lg font-semibold">Filters</h1>
       <div>
         <div className="p-4 space-y-6">
