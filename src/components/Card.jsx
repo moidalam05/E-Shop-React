@@ -3,14 +3,22 @@ import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Card = ({ featuredProduct, handleLiked, liked, product, addToCart }) => {
+const Card = ({ featuredProduct, handleLiked, liked, product }) => {
   const currentProduct = featuredProduct || product;
 
   if (!currentProduct) {
     return <div>Loading...</div>;
   }
 
-  const { id, images, title, price } = currentProduct;
+  const {
+    id,
+    images,
+    title,
+    price,
+    discountPercentage,
+    rating,
+    availabilityStatus,
+  } = currentProduct;
 
   return (
     <Link
@@ -27,21 +35,29 @@ const Card = ({ featuredProduct, handleLiked, liked, product, addToCart }) => {
         <img
           src={images[0]}
           alt={title}
-          className="w-full h-auto object-cover rounded-lg hover:scale-110 duration-200 ease-in"
+          className="w-full h-56 object-contain object-center hover:scale-110 duration-200 ease-in"
         />
       </div>
-      <div className="p-4">
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <p className="text-gray-600">${price}</p>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            addToCart(currentProduct);
-          }}
-          className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 cursor-pointer"
+      <div className="mt-2 px-4 py-2">
+        <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+        <div className="flex justify-between items-center mt-2">
+          <div className="flex items-center gap-4">
+            <p className="text-black font-semibold text-xl">${price}</p>
+            <p className="text-green-700 font-semibold">
+              {Math.round(discountPercentage)}% off
+            </p>
+          </div>
+          <p className="text-gray-600">Rating: {rating}</p>
+        </div>
+        <p
+          className={`${
+            availabilityStatus === "Low Stock"
+              ? "text-red-600"
+              : "text-green-600"
+          } font-semibold mt-2 `}
         >
-          Add to Cart
-        </button>
+          {availabilityStatus}
+        </p>
       </div>
     </Link>
   );

@@ -28,7 +28,7 @@ const ShopCards = ({ Products = [] }) => {
             <img
               src={Products.images[0]}
               alt={Products.title}
-              className="w-full h-56 object-contain object-center rounded-t-lg"
+              className="w-full h-56 object-contain object-center rounded-t-lg hover:scale-110 duration-200 ease-in"
             />
           </div>
           <div className="mt-4">

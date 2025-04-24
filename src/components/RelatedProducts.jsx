@@ -39,25 +39,6 @@ const RelatedProducts = ({ category, setProduct, setImage }) => {
     }));
   };
 
-  console.log("reletedProducts", reletedProducts);
-
-  // useEffect(() => {
-  //   const fetchRelatedProducts = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://dummyjson.com/products/category/${category}`
-  //       );
-  //       dispatch(reletedProductsActionCreator(response.data.products));
-  //     } catch (error) {
-  //       console.log("error in related product", error || error.message);
-  //     }
-  //   };
-
-  //   if (reletedProducts.length === 0) {
-  //     fetchRelatedProducts();
-  //   }
-  // }, [dispatch, reletedProducts, category]);
-
   const handleProductClick = (product) => {
     setProduct(product);
     setImage(product.images[0]);
