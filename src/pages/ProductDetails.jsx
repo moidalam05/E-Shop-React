@@ -27,8 +27,6 @@ const ProductDetails = () => {
     fetchProductById();
   }, [productId]);
 
-  
-
   const handleStarClick = (index) => setSelectStar(index);
   const selectImage = (image) => {
     setImage(image);
@@ -88,10 +86,10 @@ const ProductDetails = () => {
 
           <div className="flex gap-4 pt-4">
             <button className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition cursor-pointer">
-              Add to Cart
+              Buy Now
             </button>
             <button className="px-6 py-2 rounded-lg border text-gray-700 hover:bg-gray-100 transition cursor-pointer">
-              Add to Wishlist
+              Add to Cart
             </button>
           </div>
 

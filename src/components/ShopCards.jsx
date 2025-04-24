@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const ShopCards = ({ shopProducts }) => {
+  const [liked, setLiked] = useState({});
+  const handleLiked = (e, id) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setLiked((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {shopProducts.map((shopProduct) => (
@@ -10,11 +18,19 @@ const ShopCards = ({ shopProducts }) => {
           key={shopProduct.id}
           className="bg-white shadow-sm wfull md:w-[300px] hover:shadow-lg transition-all duration-200 ease-in rounded-lg p-4 "
         >
-          <img
-            src={shopProduct.images[0]}
-            alt={shopProduct.title}
-            className="w-full h-56 object-cover object-center rounded-t-lg"
-          />
+          <div className="relative">
+            <button
+              onClick={(e) => handleLiked(e, shopProduct.id)}
+              className="absolute text-red-500 right-0 top-0 text-2xl cursor-pointer z-10"
+            >
+              {liked[shopProduct.id] ? <FaHeart /> : <CiHeart />}
+            </button>
+            <img
+              src={shopProduct.images[0]}
+              alt={shopProduct.title}
+              className="w-full h-56 object-contain object-center rounded-t-lg"
+            />
+          </div>
           <div className="mt-4">
             <h2 className="text-lg font-semibold text-gray-800">
               {shopProduct.title}
