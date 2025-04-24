@@ -11,6 +11,7 @@ import featuredProductReducer from "../reducers/featuredProductReducer";
 import relatedProductReducer from "../reducers/reletedProductReducer";
 import shopProductsReducer from "../reducers/shopProductsReducer";
 import productByCategoryReducer from "../reducers/ProductsByCategoryReducer";
+import cartReducer from "../reducers/cartReducer";
 
 const combineReducer = combineReducers({
   signupReducer,
@@ -20,6 +21,7 @@ const combineReducer = combineReducers({
   relatedProductReducer,
   shopProductsReducer,
   productByCategoryReducer,
+  cartReducer,
 });
 
 const store = createStore(combineReducer, applyMiddleware(logger));
