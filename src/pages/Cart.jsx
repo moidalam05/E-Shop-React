@@ -2,7 +2,10 @@
 import { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCartQuantity } from "../actions/cartActionCreator";
+import {
+  removeFromCartActionCreator,
+  updateCartQuantity,
+} from "../actions/cartActionCreator";
 const Cart = () => {
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
@@ -22,7 +25,9 @@ const Cart = () => {
     calculateTotalPrice();
   };
 
-  console.log("cartData", cartData.totalQuantity);
+  const deleteCartItem = (id) => {
+    dispatch(removeFromCartActionCreator(id));
+  };
 
   useEffect(() => {
     calculateTotalPrice();
@@ -65,7 +70,10 @@ const Cart = () => {
                   onChange={(e) => handleQuantityChange(e, cartItem.id)}
                   className="w-16 border rounded-md text-center py-1 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
-                <button className="text-red-500 hover:text-red-700 transition">
+                <button
+                  onClick={() => deleteCartItem(cartItem.id)}
+                  className="text-red-500 hover:text-red-700 transition cursor-pointer"
+                >
                   <FaTrashAlt size={20} />
                 </button>
               </div>
