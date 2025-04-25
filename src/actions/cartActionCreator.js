@@ -3,9 +3,18 @@ const addToCartActionCreator = (cart) => ({
   payload: cart,
 });
 
-const removeFromCartActionCreator = (cart) => ({
+const removeFromCartActionCreator = (id) => ({
   type: "REMOVE_FROM_CART",
-  payload: cart,
+  payload: id,
 });
 
-export { addToCartActionCreator, removeFromCartActionCreator };
+const updateCartQuantity = (id, quantity) => ({
+  type: "UPDATE_CART_QUANTITY",
+  payload: { id, quantity },
+});
+
+export {
+  addToCartActionCreator,
+  removeFromCartActionCreator,
+  updateCartQuantity,
+};

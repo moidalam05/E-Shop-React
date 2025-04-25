@@ -4,12 +4,21 @@ import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import RelatedProducts from "../components/RelatedProducts";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToCartActionCreator } from "../actions/cartActionCreator";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
+  const dispatch = useDispatch();
   const { id: productId } = useParams();
   const [selectStar, setSelectStar] = useState(0);
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState("");
+
+  const addToCart = () => {
+    dispatch(addToCartActionCreator({ ...product }));
+    toast.success("Product added to cart!");
+  };
 
   useEffect(() => {
     const fetchProductById = async () => {
@@ -88,7 +97,10 @@ const ProductDetails = () => {
             <button className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition cursor-pointer">
               Buy Now
             </button>
-            <button className="px-6 py-2 rounded-lg border text-gray-700 hover:bg-gray-100 transition cursor-pointer">
+            <button
+              onClick={addToCart}
+              className="px-6 py-2 rounded-lg border text-gray-700 hover:bg-gray-100 transition cursor-pointer"
+            >
               Add to Cart
             </button>
           </div>
