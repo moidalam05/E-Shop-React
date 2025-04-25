@@ -6,7 +6,6 @@ import { updateCartQuantity } from "../actions/cartActionCreator";
 const Cart = () => {
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
-  const [quantity, setQuantity] = useState(1);
   const cartData = useSelector((state) => state.cartReducer || []);
 
   const calculateTotalPrice = () => {
@@ -19,23 +18,7 @@ const Cart = () => {
 
   const handleQuantityChange = (e, id) => {
     const newQty = parseInt(e.target.value) || 1;
-    setQuantity(newQty);
-
-    const updatedItems = cartData.cartItems.map((item) => {
-      if (item.id === id) {
-        const basePrice = item.basePrice || item.price;
-        return {
-          ...item,
-          basePrice,
-          quantity: newQty,
-          price: Math.round(basePrice * newQty * 100) / 100,
-        };
-      }
-      return item;
-    });
-
-    cartData.cartItems = updatedItems;
-    dispatch(updateCartQuantity(id, quantity));
+    dispatch(updateCartQuantity(id, newQty));
     calculateTotalPrice();
   };
 
@@ -43,7 +26,6 @@ const Cart = () => {
 
   useEffect(() => {
     calculateTotalPrice();
-    // handleQuantityChange();
   }, [totalPrice, cartData?.cartItems, setTotalPrice]);
 
   return (
@@ -79,7 +61,7 @@ const Cart = () => {
                 <input
                   type="number"
                   min="1"
-                  value={quantity}
+                  value={cartItem.quantity}
                   onChange={(e) => handleQuantityChange(e, cartItem.id)}
                   className="w-16 border rounded-md text-center py-1 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />

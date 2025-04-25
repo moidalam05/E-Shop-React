@@ -14,10 +14,13 @@ const ProductDetails = () => {
   const [selectStar, setSelectStar] = useState(0);
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState("");
+  const [addedToCart, setAddedToCart] = useState(false);
 
   const addToCart = () => {
+    if (addedToCart) return;
     dispatch(addToCartActionCreator({ ...product }));
     toast.success("Product added to cart!");
+    setAddedToCart(true);
   };
 
   useEffect(() => {
@@ -101,7 +104,7 @@ const ProductDetails = () => {
               onClick={addToCart}
               className="px-6 py-2 rounded-lg border text-gray-700 hover:bg-gray-100 transition cursor-pointer"
             >
-              Add to Cart
+              {addedToCart ? "Added to Cart" : "Add to Cart"}
             </button>
           </div>
 

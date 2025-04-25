@@ -35,11 +35,20 @@ const cartReducer = (state = initialState, action) => {
     case "UPDATE_CART_QUANTITY":
       return {
         ...state,
-        cartItems: state.cartItems.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, quantity: action.payload.quantity }
-            : item
-        ),
+        cartItems: state.cartItems.map((item) => {
+          if (item.id === action.payload.id) {
+            const basePrice =
+              item.basePrice || item.price / item.quantity || item.price;
+            const updatedQuantity = action.payload.quantity;
+            return {
+              ...item,
+              quantity: updatedQuantity,
+              basePrice,
+              price: Math.round(basePrice * updatedQuantity * 100) / 100,
+            };
+          }
+          return item;
+        }),
       };
 
     default:
