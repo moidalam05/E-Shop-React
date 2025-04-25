@@ -6,6 +6,7 @@ import {
   removeFromCartActionCreator,
   updateCartQuantity,
 } from "../actions/cartActionCreator";
+import { Link } from "react-router-dom";
 const Cart = () => {
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
@@ -89,9 +90,12 @@ const Cart = () => {
               {Math.round(totalPrice * 100) / 100}
             </p>
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-xl shadow-md transition-all w-full sm:w-auto">
+          <Link
+            to="/checkout"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-xl shadow-md transition-all w-full sm:w-auto"
+          >
             Proceed to Checkout
-          </button>
+          </Link>
         </div>
       </div>
     </div>

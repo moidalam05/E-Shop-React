@@ -5,7 +5,7 @@ const Category = ({ categoryData }) => {
   return (
     <div className="relative overflow-hidden px-4 bg-gradient-to-r from-blue-400 to-indigo-500">
       <div className="flex animate-scroll hover:animate-none">
-        <Link className="text-white whitespace-nowrap px-6 py-2" to="/category">
+        <Link className="text-white whitespace-nowrap px-6 py-2" to="/shop">
           All
         </Link>
 
