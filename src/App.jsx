@@ -10,6 +10,7 @@ import ProductsByCategory from "./pages/ProductsByCategory";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
+import SearchProducts from "./pages/SearchProducts";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/shop" element={<Shop />} />
           <Route path="/category/:slug" element={<ProductsByCategory />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/products/search" element={<SearchProducts />} />
         </Route>
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/checkout/success" element={<Order />} />

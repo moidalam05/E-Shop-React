@@ -7,7 +7,7 @@ import shopProductsActionCreator from "../actions/shopProductsActionCreator";
 import { useLocation } from "react-router-dom";
 import productsByCategoryActionCreator from "../actions/productsByCategoryActionCreator";
 
-const ShopMain = ({ slug }) => {
+const ShopMain = ({ slug, products }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [isFetching, setIsFetching] = useState(false);
@@ -71,7 +71,6 @@ const ShopMain = ({ slug }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isFetching, shopProducts.length, hasMore]);
 
-  // Decide which products to render based on pathname
   const productsToRender =
     location.pathname === "/shop" ? shopProducts : productsByCategory;
 
@@ -80,7 +79,7 @@ const ShopMain = ({ slug }) => {
       <h1 className="p-4 text-2xl font-semibold">Showing Products</h1>
       <div className="p-4 space-y-6">
         <div className="w-full">
-          <ShopCards Products={productsToRender} />
+          <ShopCards Products={productsToRender} products={products} />
         </div>
         {isFetching && <p className="text-center">Loading more products...</p>}
       </div>

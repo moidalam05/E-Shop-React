@@ -8,9 +8,11 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import categoryActionCreator from "../actions/categoryActionCreator";
 import Category from "./Category";
+import searchActionCreator from "../actions/searchActionCreator";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchCategory, setSearchCategory] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,6 +33,25 @@ const Navbar = () => {
       dispatch(categoryActionCreator(response.data));
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const handleSearchChange = async (e) => {
+    e.preventDefault();
+    try {
+      const searchQuery = searchCategory;
+
+      const response = await axios.get(
+        `https://dummyjson.com/products/search?q=${searchQuery}`
+      );
+
+      if (response.status === 200) {
+        dispatch(searchActionCreator(response.data.products));
+        setSearchCategory("");
+        navigate("/products/search");
+      }
+    } catch (error) {
+      console.log("error in search", error || error.message);
     }
   };
 
@@ -56,13 +77,16 @@ const Navbar = () => {
         </div>
         <div className="hidden lg:flex items-stretch w-full max-w-3xl">
           <input
+            value={searchCategory}
+            onChange={(e) => setSearchCategory(e.target.value)}
             type="text"
-            placeholder="Search..."
+            placeholder="Search by category..."
             className="flex-grow px-4 py-2 text-gray-700 border border-gray-400 rounded-l-full bg-white focus:outline-none focus:ring-1 focus:ring-indigo-400 transition duration-200"
           />
           <button
             type="submit"
-            className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 rounded-r-full transition duration-200 flex items-center justify-center"
+            onClick={handleSearchChange}
+            className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 rounded-r-full transition duration-200 flex items-center cursor-pointer justify-center"
           >
             <IoSearch className="text-xl" />
           </button>
@@ -95,11 +119,14 @@ const Navbar = () => {
       <div className="md:hidden flex mb-2 px-4 items-stretch w-full max-w-4xl">
         <input
           type="text"
-          placeholder="Search..."
+          value={searchCategory}
+          onChange={(e) => setSearchCategory(e.target.value)}
+          placeholder="Search by category..."
           className="flex-grow px-4 py-2 text-gray-700 border border-gray-400 rounded-l-full bg-white focus:outline-none focus:ring-1 focus:ring-indigo-400 transition duration-200"
         />
         <button
           type="submit"
+          onClick={handleSearchChange}
           className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 rounded-r-full transition duration-200 flex items-center justify-center"
         >
           <IoSearch className="text-xl" />
