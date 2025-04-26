@@ -1,85 +1,248 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    house: "",
+    street: "",
+    city: "",
+    state: "",
+    pincode: "",
+    country: "",
+    landmark: "",
+  });
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, phone, house, street, city, state, pincode, country } =
+      formData;
+
+    if (
+      !name &&
+      !email &&
+      !phone &&
+      !house &&
+      !street &&
+      !city &&
+      !state &&
+      !pincode &&
+      !country
+    ) {
+      toast.error("Please fill all the fields!");
+      return;
+    }
+    if (phone.length !== 10) {
+      toast.error("Please enter valid phone number!");
+      return;
+    }
+    if (pincode.length !== 6) {
+      toast.error("Please enter valid pincode!");
+      return;
+    }
+    if (isNaN(pincode) && isNaN(phone)) {
+      toast.error("Please enter valid pincode and phone number!");
+      return;
+    }
+    navigate("/checkout/payment");
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      house: "",
+      street: "",
+      city: "",
+      state: "",
+      pincode: "",
+      country: "",
+      landmark: "",
+    });
+    toast.success("Form submitted successfully!");
+  };
+
   return (
-    <div className="relative bg-gradient-to-r from-blue-200 to-indigo-300 min-h-screen flex items-center justify-center">
-      <div className="absolute inset-0">
-        <svg
-          className="w-full h-full"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-        >
-          <path
-            fill="rgba(255, 255, 255, 0.3)"
-            d="M0,128L48,144C96,160,192,192,288,213.3C384,235,480,245,576,234.7C672,224,768,192,864,160C960,128,1056,96,1152,80C1248,64,1344,64,1392,64L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          ></path>
-        </svg>
-        <svg
-          className="absolute w-full h-full"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-        >
-          <path
-            fill="rgba(255, 255, 255, 0.5)"
-            d="M0,64L48,80C96,96,192,128,288,160C384,192,480,224,576,213.3C672,203,768,149,864,122.7C960,96,1056,96,1152,106.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          ></path>
-        </svg>
-      </div>
-      <div className="relative bg-white p-10 rounded-3xl shadow-2xl w-full max-w-2xl">
-        <h2 className="text-3xl font-extrabold mb-8 text-gray-800 text-center">
-          Checkout
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-200 to-indigo-300 p-4">
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-5xl">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-800">
+          Shipping Details
         </h2>
-        <form className="space-y-6 flex flex-col">
+        <form
+          onSubmit={handleFormSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
+          {/* Name */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Full Name
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Full Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your full name"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
             />
           </div>
+
+          {/* Email */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Email Address
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email Address <span className="text-red-500">*</span>
             </label>
             <input
               type="email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
             />
           </div>
+
+          {/* Phone */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Shipping Address
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Phone Number <span className="text-red-500">*</span>
             </label>
-            <textarea
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your shipping address"
-              rows="3"
-            ></textarea>
+            <input
+              type="tel"
+              placeholder="Enter your phone number"
+              value={formData.phone}
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
+            />
           </div>
+
+          {/* House */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Payment Method
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              House No. / Building Name <span className="text-red-500">*</span>
             </label>
-            <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="credit-card">Credit Card</option>
-              <option value="debit-card">Debit Card</option>
-              <option value="paypal">PayPal</option>
-              <option value="upi">UPI</option>
-              <option value="cash-on-delivery">Cash on Delivery</option>
-            </select>
+            <input
+              type="text"
+              placeholder="House No. / Building Name"
+              value={formData.house}
+              onChange={(e) =>
+                setFormData({ ...formData, house: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
+            />
           </div>
-          <Link
-            to="/checkout/success"
-            type="submit"
-            className="bg-gradient-to-r text-center from-blue-500 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:shadow-lg transition duration-300"
-          >
-            Place Order
-          </Link>
+
+          {/* landmark */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Landmark
+            </label>
+            <input
+              type="text"
+              placeholder="Landmark"
+              value={formData.landmark}
+              onChange={(e) =>
+                setFormData({ ...formData, landmark: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
+            />
+          </div>
+
+          {/* Street */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Street / Area <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Street / Area"
+              value={formData.street}
+              onChange={(e) =>
+                setFormData({ ...formData, street: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
+            />
+          </div>
+
+          {/* City */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              City <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              placeholder="City"
+              value={formData.city}
+              onChange={(e) =>
+                setFormData({ ...formData, city: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
+            />
+          </div>
+
+          {/* State */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              State <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              placeholder="State"
+              value={formData.state}
+              onChange={(e) =>
+                setFormData({ ...formData, state: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
+            />
+          </div>
+
+          {/* Pincode */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Pincode <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Pincode"
+              value={formData.pincode}
+              onChange={(e) =>
+                setFormData({ ...formData, pincode: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
+            />
+          </div>
+
+          {/* Country */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Country <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Country"
+              value={formData.country}
+              onChange={(e) =>
+                setFormData({ ...formData, country: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md "
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="md:col-span-2">
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 rounded-md font-semibold hover:shadow-md transition duration-300 mt-4 cursor-pointer"
+            >
+              Continue
+            </button>
+          </div>
         </form>
       </div>
     </div>
