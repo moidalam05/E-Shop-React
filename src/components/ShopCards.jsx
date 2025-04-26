@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CiHeart } from "react-icons/ci";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa"; // ⭐ Import star icons
 import { Link } from "react-router-dom";
 
 const ShopCards = ({ Products = [], products = [] }) => {
@@ -13,6 +13,21 @@ const ShopCards = ({ Products = [], products = [] }) => {
   };
 
   const itemsToShow = Products.length > 0 ? Products : products;
+
+  // ⭐ Render Stars based on rating
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (rating >= i) {
+        stars.push(<FaStar key={i} className="text-yellow-400" />);
+      } else if (rating >= i - 0.5) {
+        stars.push(<FaStarHalfAlt key={i} className="text-yellow-400" />);
+      } else {
+        stars.push(<FaRegStar key={i} className="text-yellow-400" />);
+      }
+    }
+    return stars;
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -39,6 +54,7 @@ const ShopCards = ({ Products = [], products = [] }) => {
             <h2 className="text-lg font-semibold text-gray-800">
               {product.title}
             </h2>
+
             <div className="flex justify-between items-center mt-2">
               <div className="flex items-center gap-4">
                 <p className="text-black font-semibold text-xl">
@@ -48,8 +64,11 @@ const ShopCards = ({ Products = [], products = [] }) => {
                   {Math.round(product.discountPercentage)}% off
                 </p>
               </div>
-              <p className="text-gray-600">Rating: {product.rating}</p>
+
+              {/* ⭐ Show stars instead of number rating */}
+              <div className="flex">{renderStars(product.rating)}</div>
             </div>
+
             <p
               className={`${
                 product.availabilityStatus === "Low Stock"

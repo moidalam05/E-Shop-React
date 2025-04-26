@@ -1,6 +1,6 @@
 import React from "react";
 import { CiHeart } from "react-icons/ci";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa"; // ⭐ Star icons import kiye
 import { Link } from "react-router-dom";
 
 const Card = ({ featuredProduct, handleLiked, liked, product }) => {
@@ -24,6 +24,21 @@ const Card = ({ featuredProduct, handleLiked, liked, product }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // ⭐ Star rating render function
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (rating >= i) {
+        stars.push(<FaStar key={i} className="text-yellow-400" />);
+      } else if (rating >= i - 0.5) {
+        stars.push(<FaStarHalfAlt key={i} className="text-yellow-400" />);
+      } else {
+        stars.push(<FaRegStar key={i} className="text-yellow-400" />);
+      }
+    }
+    return stars;
+  };
+
   return (
     <Link
       to={`/product/${id}`}
@@ -43,8 +58,10 @@ const Card = ({ featuredProduct, handleLiked, liked, product }) => {
           className="w-full h-56 object-contain object-center hover:scale-110 duration-200 ease-in"
         />
       </div>
+
       <div className="mt-2 px-4 py-2">
         <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+
         <div className="flex justify-between items-center mt-2">
           <div className="flex items-center gap-4">
             <p className="text-black font-semibold text-xl">${price}</p>
@@ -52,8 +69,11 @@ const Card = ({ featuredProduct, handleLiked, liked, product }) => {
               {Math.round(discountPercentage)}% off
             </p>
           </div>
-          <p className="text-gray-600">Rating: {rating}</p>
+
+          {/* ⭐ Show Stars Instead of Number */}
+          <div className="flex">{renderStars(rating)}</div>
         </div>
+
         <p
           className={`${
             availabilityStatus === "Low Stock"
