@@ -55,7 +55,7 @@ const ProductDetails = () => {
           <img
             src={image}
             alt={product.title}
-            className="w-[500px] h-[400px] object-cover rounded-lg hover:scale-110 duration-200 ease-in"
+            className="w-[500px] h-[400px] object-contain rounded-lg hover:scale-110 duration-200 ease-in"
           />
           <div className="flex gap-3 mt-4 overflow-hidden">
             {product.images.map((img, i) => (
@@ -64,7 +64,7 @@ const ProductDetails = () => {
                 src={img}
                 alt={`Thumbnail ${i}`}
                 onClick={() => selectImage(img)}
-                className="w-20 h-20 rounded-lg object-cover transition cursor-pointer hover:scale-105"
+                className="w-20 h-20 rounded-lg object-contain transition cursor-pointer hover:scale-105"
               />
             ))}
           </div>

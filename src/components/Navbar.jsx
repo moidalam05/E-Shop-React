@@ -45,12 +45,16 @@ const Navbar = () => {
         `https://dummyjson.com/products/search?q=${searchQuery}`
       );
 
-      if (response.status === 200) {
+      if (response.data.products.length > 0) {
         dispatch(searchActionCreator(response.data.products));
         setSearchCategory("");
         navigate("/products/search");
+      } else {
+        toast.error("Products not found");
+        setSearchCategory("");
       }
     } catch (error) {
+      setSearchCategory("");
       console.log("error in search", error || error.message);
     }
   };

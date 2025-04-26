@@ -20,9 +20,14 @@ const Card = ({ featuredProduct, handleLiked, liked, product }) => {
     availabilityStatus,
   } = currentProduct;
 
+  const handleCardClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <Link
       to={`/product/${id}`}
+      onClick={handleCardClick}
       className="bg-white mx-4 md:mx-0 shadow-md rounded-lg overflow-hidden"
     >
       <div className="relative">
@@ -54,7 +59,7 @@ const Card = ({ featuredProduct, handleLiked, liked, product }) => {
             availabilityStatus === "Low Stock"
               ? "text-red-600"
               : "text-green-600"
-          } font-semibold mt-2 `}
+          } font-semibold mt-2`}
         >
           {availabilityStatus}
         </p>
