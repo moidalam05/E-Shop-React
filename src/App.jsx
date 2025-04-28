@@ -12,6 +12,7 @@ import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
 import SearchProducts from "./pages/SearchProducts";
 import Payment from "./pages/Payment";
+import Success from "./pages/Success";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/checkout/success" element={<Order />} />
         <Route path="/checkout/payment" element={<Payment />} />
+        <Route path="/checkout/payment/success" element={<Success />} />
       </Routes>
     </div>
   );
