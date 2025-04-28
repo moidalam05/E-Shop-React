@@ -7,6 +7,7 @@ import {
   updateCartQuantity,
 } from "../actions/cartActionCreator";
 import { Link } from "react-router-dom";
+import totalPriceActionCreator from "../actions/totalPriceActionCreator";
 const Cart = () => {
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
@@ -18,6 +19,7 @@ const Cart = () => {
       total += item.price;
     });
     setTotalPrice(total);
+    dispatch(totalPriceActionCreator(totalPrice));
   };
 
   const handleQuantityChange = (e, id) => {

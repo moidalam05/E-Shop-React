@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { MdCheckCircle } from "react-icons/md";
 import Confetti from "react-confetti";
+import { useSelector } from "react-redux";
 
 const Success = () => {
   const [showConfetti, setShowConfetti] = React.useState(true);
+  const totalPrice = useSelector((state) => state.totalPriceReducer);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,7 +50,7 @@ const Success = () => {
             </div>
             <div className="flex justify-between text-sm text-gray-600">
               <span>Amount Paid:</span>
-              <span>₹1,999</span>
+              <span>${totalPrice}</span>
             </div>
           </div>
 

@@ -13,3 +13,14 @@
 .animate-bounce-slow {
   animation: bounce-slow 2s infinite;
 }
+
+div.toast-container {
+  padding: 0 !important;
+  margin: 0 !important;
+  position: fixed !important; /* Fix position */
+  top: 0 !important;
+  right: 0 !important;
+  z-index: 9999999 !important; /* High z-index */
+  box-shadow: none !important;
+  width: auto !important; /* Adjust width */
+}

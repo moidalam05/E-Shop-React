@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import {
-  FaCreditCard,
-  FaUniversity,
-  FaMobileAlt,
-  FaMoneyBillWave,
-} from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaCreditCard, FaUniversity, FaMobileAlt } from "react-icons/fa";
 import { MdOutlineAttachMoney } from "react-icons/md";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
+  const [discount, setDiscount] = useState(0);
+
+  const totalPrice = useSelector((state) => state.totalPriceReducer || 0);
 
   const paymentOptions = [
     {
@@ -38,17 +37,19 @@ const Payment = () => {
 
   const handlePaymentSubmit = (e) => {
     e.preventDefault();
-
     if (selectedOption) {
-      // Handle payment submission logic here
       console.log("Payment submitted:", selectedOption);
       navigate("/checkout/payment/success");
     }
   };
 
+  useEffect(() => {
+    setDiscount(Math.floor(Math.random() * 5));
+  }, [setDiscount]);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-200 p-6">
-      <div className="bg-white shadow-2xl rounded-2xl overflow-hidden max-w-4xl w-full flex flex-col md:flex-row">
+      <div className="bg-white shadow-2xl rounded-2xl overflow-hidden max-w-6xl w-full flex flex-col md:flex-row">
         {/* Sidebar */}
         <div className="w-full md:w-1/3 bg-blue-400 text-white p-8 space-y-6">
           <h2 className="text-2xl font-bold text-center mb-6">
@@ -74,51 +75,83 @@ const Payment = () => {
         </div>
 
         {/* Main Section */}
-        <div className="flex-1 p-8">
-          {!selectedOption && (
-            <div className="flex justify-center items-center h-full text-gray-500 text-xl">
-              Please select a payment method
-            </div>
-          )}
+        <div className="flex-1 p-8 flex flex-col md:flex-row gap-8">
+          {/* Left Form Section */}
+          <div className="flex-1">
+            {!selectedOption && (
+              <div className="flex justify-center items-center h-full text-gray-500 text-xl">
+                Please select a payment method
+              </div>
+            )}
 
-          {/* Forms */}
-          <div className="max-w-md mx-auto space-y-6">
-            {selectedOption === "creditcard" && (
-              <PaymentForm
-                handlePaymentSubmit={handlePaymentSubmit}
-                type="Credit Card"
-              />
-            )}
-            {selectedOption === "debitcard" && (
-              <PaymentForm
-                handlePaymentSubmit={handlePaymentSubmit}
-                type="Debit Card"
-              />
-            )}
-            {selectedOption === "upi" && (
-              <UPIForm handlePaymentSubmit={handlePaymentSubmit} />
-            )}
-            {selectedOption === "netbanking" && (
-              <NetBankingForm handlePaymentSubmit={handlePaymentSubmit} />
-            )}
-            {selectedOption === "cashondelivery" && (
-              <CashOnDelivery handlePaymentSubmit={handlePaymentSubmit} />
+            <div className="max-w-md mx-auto space-y-6">
+              {selectedOption === "creditcard" && (
+                <PaymentForm
+                  handlePaymentSubmit={handlePaymentSubmit}
+                  type="Credit Card"
+                />
+              )}
+              {selectedOption === "debitcard" && (
+                <PaymentForm
+                  handlePaymentSubmit={handlePaymentSubmit}
+                  type="Debit Card"
+                />
+              )}
+              {selectedOption === "upi" && (
+                <UPIForm handlePaymentSubmit={handlePaymentSubmit} />
+              )}
+              {selectedOption === "netbanking" && (
+                <NetBankingForm handlePaymentSubmit={handlePaymentSubmit} />
+              )}
+              {selectedOption === "cashondelivery" && (
+                <CashOnDelivery handlePaymentSubmit={handlePaymentSubmit} />
+              )}
+            </div>
+
+            {selectedOption && (
+              <div className="text-center mt-8 text-gray-400 text-sm">
+                🔒 Secure SSL Encrypted Payment
+              </div>
             )}
           </div>
 
-          {/* Secure badge */}
-          {selectedOption && (
-            <div className="text-center mt-8 text-gray-400 text-sm">
-              🔒 Secure SSL Encrypted Payment
+          {/* Right Order Summary Section */}
+          <div className="w-full md:w-1/3 bg-gray-50 rounded-lg p-6 shadow-md h-fit">
+            <h2 className="text-lg font-bold text-gray-700 mb-4">
+              Order Summary
+            </h2>
+            <div className="space-y-3 text-sm text-gray-600">
+              <div className="flex justify-between">
+                <span>Item(s) Total:</span>
+                <span>${totalPrice}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Delivery Charges:</span>
+                <span className="text-green-600">FREE</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Discount:</span>
+                <span className="text-green-600">-${discount}</span>
+              </div>
+              <hr className="my-2" />
+              <div className="flex justify-between font-semibold text-gray-800">
+                <span>Grand Total:</span>
+                <span>${totalPrice - discount}</span>
+              </div>
             </div>
-          )}
+
+            {/* Recommended Offer */}
+            <div className="mt-6 p-4 bg-indigo-100 text-indigo-700 text-sm rounded-lg">
+              🔥 Get 5% Cashback with XYZ Bank Cards!
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-// Components
+// Reusable Components
 
 const PaymentForm = ({ type, handlePaymentSubmit }) => (
   <>
@@ -179,7 +212,6 @@ const CashOnDelivery = ({ handlePaymentSubmit }) => (
   </>
 );
 
-// Reusable Input
 const Input = ({ label, placeholder, type = "text" }) => (
   <div className="flex flex-col">
     <label className="text-sm font-medium text-gray-700 mb-1">{label}</label>
@@ -191,17 +223,14 @@ const Input = ({ label, placeholder, type = "text" }) => (
   </div>
 );
 
-// Reusable Button
-const SubmitButton = ({ label = "Pay Now", handlePaymentSubmit }) => {
-  return (
-    <button
-      onClick={handlePaymentSubmit}
-      type="button"
-      className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition cursor-pointer"
-    >
-      {label}
-    </button>
-  );
-};
+const SubmitButton = ({ label = "Pay Now", handlePaymentSubmit }) => (
+  <button
+    onClick={handlePaymentSubmit}
+    type="button"
+    className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition cursor-pointer"
+  >
+    {label}
+  </button>
+);
 
 export default Payment;
