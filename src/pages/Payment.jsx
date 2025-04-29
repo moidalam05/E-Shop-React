@@ -153,22 +153,25 @@ const Payment = () => {
 
 // Reusable Components
 
-const PaymentForm = ({ type, handlePaymentSubmit }) => (
-  <>
-    <h2 className="text-xl font-bold text-gray-700 text-center mb-4">
-      {type} Payment
-    </h2>
-    <form className="space-y-5">
-      <Input label="Cardholder Name" placeholder="John Doe" />
-      <Input label="Card Number" placeholder="1234 5678 9012 3456" />
-      <div className="flex space-x-4">
-        <Input label="Expiry Date" placeholder="MM/YY" />
-        <Input label="CVV" placeholder="123" type="password" />
-      </div>
-      <SubmitButton handlePaymentSubmit={handlePaymentSubmit} />
-    </form>
-  </>
-);
+const PaymentForm = ({ type, handlePaymentSubmit }) => {
+  
+  return (
+    <>
+      <h2 className="text-xl font-bold text-gray-700 text-center mb-4">
+        {type} Payment
+      </h2>
+      <form className="space-y-5">
+        <Input label="Cardholder Name" placeholder="John Doe" />
+        <Input label="Card Number" placeholder="1234 5678 9012 3456" />
+        <div className="flex space-x-4">
+          <Input label="Expiry Date" placeholder="MM/YY" />
+          <Input label="CVV" placeholder="123" type="password" />
+        </div>
+        <SubmitButton handlePaymentSubmit={handlePaymentSubmit} />
+      </form>
+    </>
+  );
+};
 
 const UPIForm = ({ handlePaymentSubmit }) => (
   <>
