@@ -117,9 +117,9 @@ const Home = () => {
       >
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-extrabold mb-6">Ready to Shop?</h2>
-          <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+          <Link to="/shop" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
             Start Shopping
-          </button>
+          </Link>
         </div>
       </motion.div>
     </div>
