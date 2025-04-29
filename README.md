@@ -11,7 +11,7 @@
 
 ## 🌐 Live Demo
 
-🔗 [View Live on Vercel](https://your-e-shop.vercel.app)
+🔗 [View Live on Vercel](https://e-shop-react-git-main-moid786s-projects.vercel.app/)
 
 ---
 
