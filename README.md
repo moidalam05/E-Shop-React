@@ -16,8 +16,52 @@
 ---
 
 ## 📸 Screenshot
+1.
+![Login](./src/Assets/1.png)
+---
+2.
+![signup](./src/Assets/2.png)
+---
+3.
+![home](./src/Assets/3.png)
+---
+4.
+![category](./src/Assets/4.png)
+---
+5.
+![featured-products](./src/Assets/5.png)
+---
+6.
+![testimonials](./src/Assets/6.png)
+---
+7.
+![footer](./src/Assets/7.png)
+---
+8.
+![product-listing](./src/Assets/8.png)
+---
+9.
+![product-details](./src/Assets/9.png)
+---
+10.
+![reviews](./src/Assets/10.png)
+---
+11.
+![releted-products](./src/Assets/11.png)
+---
+12.
+![cart](./src/Assets/12.png)
+---
+13.
+![shipping-details](./src/Assets/13.png)
+---
+14.
+![payment-details](./src/Assets/14.png)
+---
+15.
+![thank-you](./src/Assets/15.png)
+---
 
-![E-Shop Preview](./assets/screenshot.png)
 
 ---
 
