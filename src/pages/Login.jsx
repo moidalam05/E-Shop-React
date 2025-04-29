@@ -23,13 +23,20 @@ const Login = () => {
     e.preventDefault();
 
     if (formData.email && formData.password) {
-      dispatch(loginActionCreator(formData));
       if (
         formData.email === storeData.email &&
         formData.password === storeData.password
       ) {
-        navigate("/");
+        dispatch(loginActionCreator(formData));
+        localStorage.setItem(
+          "loginInfo",
+          JSON.stringify({
+            ...formData,
+            isLoggedIn: true,
+          })
+        );
         toast.success("User login successful!");
+        navigate("/");
       } else {
         toast.error("Please enter valid credentials!");
       }
@@ -37,6 +44,7 @@ const Login = () => {
       toast.error("Please fill all the fields!");
     }
   };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue-200">
       <div className="w-full max-w-md p-8 space-y-6 bg-white/50 rounded-lg shadow-md">

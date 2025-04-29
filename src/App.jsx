@@ -13,6 +13,7 @@ import Order from "./pages/Order";
 import SearchProducts from "./pages/SearchProducts";
 import Payment from "./pages/Payment";
 import Success from "./pages/Success";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
@@ -20,8 +21,15 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/category/:slug" element={<ProductsByCategory />} />

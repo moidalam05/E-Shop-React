@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import categoryActionCreator from "../actions/categoryActionCreator";
 import Category from "./Category";
 import searchActionCreator from "../actions/searchActionCreator";
+import logoutActionCreator from "../actions/logoutActionCreator";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,7 +21,13 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const loginInfo = useSelector((state) => state.loginReducer);
   const handleLogout = () => {
+    if (loginInfo) {
+      loginInfo.isLoggedIn = false;
+      localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
+    }
+    dispatch(logoutActionCreator());
     toast.success("Logout successful!");
     navigate("/login");
   };

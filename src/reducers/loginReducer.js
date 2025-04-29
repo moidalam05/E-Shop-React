@@ -5,21 +5,30 @@ const initialState = {
   rememberMe: false,
 };
 
-const loginReducer = (state = initialState, action) => {
+const savedLogin = JSON.parse(localStorage.getItem("loginInfo"));
+const defaultState = savedLogin
+  ? { ...initialState, ...savedLogin }
+  : initialState;
+
+const loginReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case "LOGIN":
-      return {
+    case "LOGIN": {
+      const newState = {
         ...state,
         ...action.payload,
+        isLoggedIn: true,
       };
-    case "LOGOUT":
+      localStorage.setItem("loginInfo", JSON.stringify(newState));
+      return newState;
+    }
+
+    case "LOGOUT": {
       return {
         ...state,
         isLoggedIn: false,
-        email: "",
-        password: "",
-        rememberMe: false,
       };
+    }
+
     default:
       return state;
   }

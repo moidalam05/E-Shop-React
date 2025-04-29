@@ -18,11 +18,16 @@ const Signup = () => {
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-
     if (formData.username && formData.email && formData.password) {
-      dispatch(signupActionCreator(formData));
-      toast.success("User signup successful!");
-      navigate("/login");
+      try {
+        const result = dispatch(signupActionCreator(formData));
+        localStorage.setItem("userInfo", JSON.stringify(result?.payload));
+        toast.success("User signup successful!");
+        navigate("/login");
+      } catch (err) {
+        toast.error("Signup failed!");
+        console.log("error in signup", err || err.message);
+      }
     } else {
       toast.error("Please fill all the fields!");
     }

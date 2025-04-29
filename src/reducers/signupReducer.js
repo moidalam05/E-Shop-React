@@ -6,21 +6,29 @@ const initialState = {
   rememberMe: false,
 };
 
-function signupReducer(state = initialState, action) {
+const savedUser = JSON.parse(localStorage.getItem("userInfo"));
+const defaultState = savedUser
+  ? { ...initialState, ...savedUser }
+  : initialState;
+
+function signupReducer(state = defaultState, action) {
   switch (action.type) {
-    case "SIGNUP":
-      return { ...state, ...action.payload };
-    case "LOGIN":
-      return { ...state, isLoggedIn: true };
-    case "LOGOUT":
+    case "SIGNUP": {
+      const newState = { ...state, ...action.payload };
+      localStorage.setItem("userInfo", JSON.stringify(newState));
+      return newState;
+    }
+    case "LOGIN": {
+      const newState = { ...state, isLoggedIn: true };
+      localStorage.setItem("userInfo", JSON.stringify(newState));
+      return newState;
+    }
+    case "LOGOUT": {
       return {
         ...state,
         isLoggedIn: false,
-        email: "",
-        password: "",
-        username: "",
-        rememberMe: false,
       };
+    }
     default:
       return state;
   }
