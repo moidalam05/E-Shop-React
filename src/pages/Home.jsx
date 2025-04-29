@@ -14,7 +14,7 @@ const Home = () => {
     <div className="bg-gray-100">
       {/* Hero Section with Glassmorphism */}
       <div
-        className="relative h-screen bg-cover bg-center"
+        className="relative min-h-screen bg-cover bg-center"
         style={{
           backgroundImage: `url(${homeImage})`,
         }}
