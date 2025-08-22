@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import RelatedProducts from "../components/RelatedProducts";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCartActionCreator } from "../actions/cartActionCreator";
 import toast from "react-hot-toast";
 import Reviews from "../components/Reviews";
@@ -14,11 +14,29 @@ const ProductDetails = () => {
   const [image, setImage] = useState("");
   const [addedToCart, setAddedToCart] = useState(false);
 
+  const navigate = useNavigate();
+
+  const loginInfo = useSelector((state) => state.loginReducer);
+
   const addToCart = () => {
     if (addedToCart) return;
+    if (!loginInfo?.isLoggedIn) {
+      toast.error("Please login to add items to cart");
+      navigate("/login");
+      return;
+    }
     dispatch(addToCartActionCreator({ ...product }));
     toast.success("Product added to cart!");
     setAddedToCart(true);
+  };
+
+  const handleBuyNow = () => {
+    if (!loginInfo?.isLoggedIn) {
+      toast.error("Please login to proceed to buy");
+      navigate("/login");
+      return;
+    }
+    navigate("/checkout");
   };
 
   useEffect(() => {
@@ -93,7 +111,10 @@ const ProductDetails = () => {
           </div>
 
           <div className="flex gap-4 pt-4">
-            <button className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition cursor-pointer">
+            <button
+              onClick={handleBuyNow}
+              className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition cursor-pointer"
+            >
               Buy Now
             </button>
             <button

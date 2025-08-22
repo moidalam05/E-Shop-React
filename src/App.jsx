@@ -21,14 +21,7 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
-          }
-        >
+        <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/shop" element={<Shop />} />
@@ -36,10 +29,38 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/products/search" element={<SearchProducts />} />
         </Route>
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/checkout/success" element={<Order />} />
-        <Route path="/checkout/payment" element={<Payment />} />
-        <Route path="/checkout/payment/success" element={<Success />} />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout/success"
+          element={
+            <ProtectedRoute>
+              <Order />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout/payment"
+          element={
+            <ProtectedRoute>
+              <Payment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout/payment/success"
+          element={
+            <ProtectedRoute>
+              <Success />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );

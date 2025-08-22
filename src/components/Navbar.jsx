@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaShopify } from "react-icons/fa";
 import { IoMenu, IoClose, IoSearch } from "react-icons/io5";
-import { FaShopify } from "react-icons/fa";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +28,7 @@ const Navbar = () => {
     }
     dispatch(logoutActionCreator());
     toast.success("Logout successful!");
-    navigate("/login");
+    navigate("/");
   };
 
   const fetchGategory = async (dispatch) => {
@@ -113,10 +112,12 @@ const Navbar = () => {
             </i>
           </NavLink>
           <button
-            onClick={handleLogout}
+            onClick={
+              loginInfo?.isLoggedIn ? handleLogout : () => navigate("/login")
+            }
             className="hidden md:block bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-gray-800 transition duration-300 cursor-pointer active:scale-98"
           >
-            Logout
+            {loginInfo?.isLoggedIn ? "Logout" : "Login"}
           </button>
           <button
             type="button"
